@@ -1,0 +1,320 @@
+html:not([data-device="mobile"]) .tm-container .tm-admin-container {
+	min-width: 355px;
+}
+.tags-filter-multiselect .tm-tagColor {
+	width: 18px;
+}
+.tm-admin .tagList {
+	margin-bottom: 0;
+	max-height: 300px;
+    overflow: auto;
+}
+.tm-admin .no-tags-msg {
+	padding: 15px;
+	display: block;
+}
+.tm-admin .tagItem {
+	padding: 20px 15px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.tm-admin .create-new-tag.disabled {
+	pointer-events: auto;
+}
+.tm-admin .tagItem .tag-name {
+	width: 110px;
+	margin-right: 50px;
+	margin-left: 7px;
+	font-size: 16px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: 14px;
+}
+html[dir=rtl] .tm-admin .tagItem .tag-name {
+	margin-right: 7px;
+	margin-left: 50px;
+}
+.tm-admin .tagItem.edit-mode .tag-action .editTag,
+.tm-admin .tagItem:not(.edit-mode) .tag-action .saveTag {
+	display: none;
+}
+.tm-admin .tag-info {
+	display: flex;
+	align-items: center;
+}
+.tm-admin .tag-info > * {
+	flex-shrink: 0;
+}
+.tm-admin .tag-info .tm-assigment {
+	margin: 0;
+}
+.tm-admin .tag-info .tm-assigment-lbl {
+	margin-right: 10px !important
+}
+html[dir=rtl] .tm-admin .tag-info .tm-assigment-lbl {
+	margin-right: 0;
+	margin-left: 10px !important
+}
+.tm-admin .tag-info .tm-assigment-input-container {
+	display: flex;
+	align-items: center;
+	margin: 0;
+}
+.create-new-tag-container {
+	padding: 15px;
+}
+/* color item */
+.tm-tagColor {
+	width: 20px;
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	flex-shrink: 0;
+	margin-bottom: 1px;
+	display: inline-block;
+}
+.tm-filter-btn .tm-tagColor {
+	display: none;
+}
+.tagList .tagItem .tag-action {
+	display: flex;
+	gap: 15px;
+	font-size: 16px;
+}
+.tagList .tagItem .tag-action .editTag {
+	color: #337ab7;
+}
+
+/* Items page Styles
+------------------*/
+.tm-root td .tm-container {
+	display: inline-block;
+	margin: 10px 0;
+}
+.tm-root td .tm-container .manage-tags {
+	cursor: pointer;
+	box-shadow: none;
+}
+/* show link on hover in computer only, we need this because
+the messages modules are using the same html unlike the orders module,
+after we convert the messages to work like orders we can revert this fix */
+html[data-device="computer"] .tm-root td .tm-container .manage-tags {
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out;
+} 
+html[data-device="computer"] .tm-root td:is(:hover,.tags-opened) .tm-container .manage-tags {
+	opacity: 1;
+}
+.tm-root .tm-related-tags {
+	display: flex;
+	gap: 5px;
+	max-width: 100%;
+	flex-wrap: wrap;
+}
+.tm-root .tm-related-tags > span.tm-tag {
+	cursor: pointer;
+	margin-top: 1px;
+	max-width: 160px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+/* tag text color handler */
+.tm-root .tm-related-tags > span.tm-tag[data-is-color-brightness="light"] {
+	color: #000;
+}
+.tm-root .tm-related-tags > span.tm-tag[data-is-color-brightness="dark"] {
+	color: #fff;
+}
+
+/* rtl filter tool fix - the input was covering the color box */
+html[dir=rtl] .form-inline .tm-filter-container .multiselect-container li a label.checkbox input[type=checkbox] {
+	margin-left: 0px;
+}
+
+/* Tags Admin
+-----------------*/
+.tm-admin {
+	border: 0;
+}
+.tm-admin .tm-header {
+	position: relative;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.tm-admin .tm-header .title-border-bottom {
+	border-bottom: 1px solid #EBECEE;
+	margin-top: 10px;
+}
+.tm-admin .tm-header .tm-admin-dismiss {
+	position: absolute;
+	right: 0;
+	top: 50%;
+	padding: 10px;
+	color: inherit;
+	transform: translateY(-50%);
+}
+html[dir=rtl] .tm-admin .tm-header .tm-admin-dismiss {
+	left: 0;
+	right: auto;
+}
+.tm-admin .tm-header .tm-admin-dismiss .tm-icon {
+	color: inherit;
+	font-size: 15px;
+	font-weight: 500;
+}
+
+.tm-backdrop {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+	background-color: #000;
+	opacity: 0.5;
+}
+
+/* Mobile Design
+---------------------*/
+html[data-device="mobile"] .tm-container .open .tm-admin-container {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 80%;
+	transform: translate(-50%,-50%);
+	border-radius: 10px 10px 0 0 !important;
+	overflow: hidden;
+	border: 1px solid #e1e6ef;
+}
+html[data-device="mobile"][dir=rtl] .tm-container .open .tm-admin-container {
+	left: auto;
+	right: 50%;
+	transform: translate(50%,-50%);
+}
+html[data-device="mobile"] .tm-container .open .tm-admin-container .tm-admin .tagItem {
+	justify-content: space-between;
+}
+html[data-device="mobile"] .tm-container .open .tm-admin-container .tm-admin .tagItem .tag-info .tag-name {
+	margin: 0;
+}
+html[data-device="mobile"] .tm-container .open .tm-admin-container .tm-admin {
+	height: 100%;
+	overflow: hidden;
+	margin: 0;
+    border-width: 0;
+}
+html[data-device="mobile"] .tm-container .open .tm-admin-container .tm-admin .tagList {
+	max-height: calc(100vh - 270px);
+	overflow-y: auto;
+}
+/* Tablet only */
+@media (max-width: 425px) {
+	html[data-device="mobile"] .tm-container .open .tm-admin-container {
+		width: calc(100% - 15px);
+	}
+}
+/* Tablet only */
+@media (min-width: 768px) {
+	html[data-device="mobile"] .tm-container .open .tm-admin-container .tm-admin .tagItem .tag-info .tag-name {
+		width: 100%;
+	}
+}
+
+/* Tag Editor Styles
+-----------------*/
+.tm-admin-container.edit-mode .tm-admin,
+.tm-admin-container:not(.edit-mode) .tm-editor {
+	display: none;
+}
+.tm-admin-container .tm-editor .widget-box {
+	border: 0;
+}
+.tm-admin-container.edit-mode .tm-editor {
+	cursor: initial;
+}
+.tm-editor .tm-editor-color-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 5px;
+}
+.tm-editor .tm-editor-color-list .tm-color-item {
+	cursor: pointer;
+	width: calc(calc( 100% / 5 ) - 5px);
+	aspect-ratio: 16/9;
+}
+.tm-editor .tm-editor-buttons {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+/* bug fix - ace rtl is adding margin to the button */
+.tm-editor .tm-editor-buttons .removeTag {
+	margin: 0 !important;
+}
+.tm-editor .widget-header {
+	display: flex;
+	justify-content: center;
+	padding: 0;
+}
+.tm-editor .widget-header .widget-title {
+	width: auto;
+	max-width: 50%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.tm-editor .widget-header .exit-editor {
+	color: inherit;
+	position: absolute;
+	left: 0;
+	padding: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+html[dir=rtl] .tm-editor .widget-header .exit-editor {
+	right: 0;
+	left: auto;
+}
+.tm-editor .tm-editor-color-list .tm-color-item.active {
+	border: 2px solid #000;
+}
+/* loading icon */
+.tm-editor .saveTag:not([disabled]) .loading-icon {
+	display: none;
+}
+
+/* place element in the middle of the screen */
+.tm-container .open .tm-not-fully-visible {
+	position: fixed;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.tm-container .open .tm-admin-container.tm-not-fully-visible .tm-admin .tagList {
+	max-height: calc(100vh - 150px);
+	overflow-y: auto;
+}
+/* hide scroll bar */
+html.tm-prevent-scroll {
+	overflow-y: hidden;
+}
+
+/* RTL Bug Fix - When opening the tags manager in rtl
+the tags manager wasn't completly visible because bootstrap is
+adding `overflow-x: hidden` on the `body` tag, so we need to override it only
+when the tags manager is open
+---------------------*/
+html[dir=rtl].tm-prevent-scroll body {
+	overflow-x: visible;
+}
+
+.popover.tag-manager-popover {
+	width: 300px;
+	border-radius: 6px;
+}
+.popover.tag-manager-popover .popover-content .tm-body,
+.popover.tag-manager-popover .popover-content {
+	padding: 0;
+}

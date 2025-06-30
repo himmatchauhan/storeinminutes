@@ -1,0 +1,195 @@
+/* options headers */
+.modal-select-container {
+    width: 100%;
+    cursor: pointer;
+}
+.modal-select-container a {
+	margin-top: 0;
+}
+.modal-select-container .m-s-single {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #858585;
+    background-color: #fff;
+    border: 1px solid #d5d5d5;
+    position: relative;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.modal-select-container .m-s-single > span {
+    display: flex;
+    flex-wrap: wrap;
+}
+.modal-select-container .m-s-single img {
+	width: 80px;
+	height: 80px;
+	min-height: 80px;
+}
+.modal-select-container .m-s-single div {
+	position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 18px;
+    height: 100%;
+}
+html[dir="rtl"] .modal-select-container .m-s-single div {
+    right: auto;
+    left: 0;
+}
+.modal-select-container .m-s-single div b {
+	display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+}
+.modal-select-container .m-s-single div b:before {
+	content: "\f0d7";
+    color: #000;
+    font-family: FontAwesome;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+   
+}
+.modal-select-container.modal-select-container-active .m-s-single {
+	border: 1px solid #66AFE9;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.modal-select-container.modal-select-container-active .m-s-single div b:before {
+	content: "\f0d8";
+}
+.modal-select-container .m-s-single .m-s-option-text {
+	display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    padding: 10px;
+    max-width: calc(100% - 20px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+.modal-select-container .m-s-single .m-s-option-text.m-s-no-preview-img {
+    padding: 0px;
+}
+#modalSelect.bootbox.modal .m-s-options {
+	display: block;
+	text-align: center;
+}
+#modalSelect.bootbox.modal .m-s-options .m-s-option-btn {
+	outline: 1px solid #d5d5d5;
+	margin: 4px;
+	padding: 0px;
+	cursor: pointer;
+	width: 100%;
+    height: auto;
+}
+#modalSelect.bootbox.modal .m-s-options .m-s-option-btn:hover, 
+#modalSelect.bootbox.modal .m-s-options .m-s-option-btn.active {
+	outline-width: 2px;
+	margin: 4px;
+	outline-color: #0597F2;
+}
+#modalSelect.bootbox.modal .m-s-options .m-s-option-btn p {
+	margin: 0px;
+	padding-top: 5px;
+	text-align: center;
+	background-color: #e6e6e6;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+#modalSelect.bootbox.modal .m-s-options .m-s-option-btn img,
+#modalSelect.bootbox.modal .m-s-options .m-s-option-btn .image-switch.second-image img {
+	display: block;
+	margin: 0px auto;
+	width : 100px;
+	height: 100px;
+    padding: 10px;
+}
+#modalSelect.bootbox.modal .modal-header h4{
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+    font-size: 18px;
+}
+#modalSelect.bootbox.modal .m-s-options .m-s-option-btn .image-switch.second-image {
+    position: absolute;
+    z-index: 0;
+    top: 0px;
+    left: 0px;
+    right: 1px;
+    opacity: 0;
+    transition: opacity 0.8s;
+}
+#modalSelect.bootbox.modal .m-s-options .m-s-option-btn:hover .image-switch.first-image {
+    opacity: 0;
+    transition: opacity 0.8s;
+}
+#modalSelect.bootbox.modal .m-s-options .m-s-option-btn:hover .image-switch.second-image {
+    opacity: 1;
+    overflow-y: inherit;
+    transition: opacity 0.8s;
+}
+#modalSelect.bootbox.modal .m-s-options .m-s-option-btn .image-switch-container {
+    display: inline-flex;
+    position: relative;
+    margin: 0px auto;
+}
+/* disabled status */
+.modal-select-container.disabled {
+    opacity: 0.5;
+}
+/* inline modal select */
+.modal-select-inline-container {
+    width: calc(100% - 10px);   /* save place for scroll */
+    height: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-row-gap: 10px;
+    grid-auto-columns: 100%;
+    grid-auto-rows: auto;
+    overflow: auto;
+}
+.modal-select-inline-container .inlineSelectItem.m-s-option-btn {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border: 1px solid transparent;
+}
+.modal-select-inline-container .inlineSelectItem.m-s-option-btn.active,
+.modal-select-inline-container .inlineSelectItem.m-s-option-btn:hover {
+    border-color: #0597F2;
+}
+.modal-select-inline-container .inlineSelectItem.m-s-option-btn .m-s-i-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid #555;
+}
+#modalSelect .modal-body {
+    padding: 15px;
+    background-color: #fff;
+}
+/* Close button not centerd with the header text
+---------------*/
+#modalSelect .modal-header .close {
+	margin-top: -7px;
+}
+/* off canvas only - because we calcualte the height manually we needed
+to also to preserve the space that we stole from the bottom after we pulled the button
+up */
+#modalSelect[data-sm-mode="offcanvas"] .modal-header .close {
+    padding-bottom: 7px;
+}

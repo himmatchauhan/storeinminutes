@@ -1,0 +1,215 @@
+/* Generate With AI - CSS Styles */
+
+#generateWithAiModal {
+    padding-top: 25px !important;
+}
+#generateWithAiModal .modal-dialog {
+    margin-top: 25px !important;
+}
+
+#generateWithAiModal .ai-generator-container {
+    overflow: hidden;
+}
+
+#modalSelect.bootbox.modal {
+    z-index: 1060 !important;
+}
+
+#generateWithAiModal .ai-generator-container .row {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+#generateWithAiModal .ai-generator-container .left-column {
+    width: 30%;
+    height: 650px;
+}
+
+#generateWithAiModal .ai-generator-container .right-column {
+    width: 70%;
+    padding: 0 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 675px;
+}
+
+#generateWithAiModal .ai-generator-container .widget-box {
+    height: 100%;
+    overflow: hidden;
+}
+
+#generateWithAiModal .ai-generator-container .widget-body {
+    height: 100%;
+    overflow: hidden;
+}
+
+#generateWithAiModal .ai-generator-container .widget-main {
+    height: 100%;
+    overflow: hidden;
+}
+
+#generateWithAiModal .ai-generator-container .generated-images-container {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+#generateWithAiModal .ai-generator-container .generated-images-grid {
+    height: calc(100% - 30px);
+    overflow: hidden;
+}
+
+#generateWithAiModal .ai-generator-container .grid-content.empty-state {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+#generateWithAiModal .ai-generator-container .grid-content.loading-state {
+    display: none;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+#generateWithAiModal .ai-generator-container .grid-content.image-state {
+    display: none;
+    height: 100%;
+}
+
+#generateWithAiModal .ai-generator-container .disclaimer-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 12px;
+    padding: 5px;
+}
+
+#generateWithAiModal .ai-generator-container .generated-image-card {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#generateWithAiModal .ai-generator-container .generated-image-card img {
+    max-height: 95%;
+    max-width: 95%;
+    object-fit: contain;
+}
+
+#generateWithAiModal .ai-generator-container .credits-info {
+    margin-top: 10px;
+}
+
+#generateWithAiModal .modal-footer {
+    background-color: var(--gray-200);
+    padding: 15px;
+    border-top: 1px solid var(--gray-300);
+    text-align: left;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    display: block !important;
+}
+
+#generateWithAiModal .modal-body {
+    padding-bottom: 20px;
+}
+
+#generateWithAiModal .modal-footer .btn {
+    margin-right: 5px;
+}
+
+/* Small Tablet Responsive Styles */
+@media (max-width: 1024px) and (min-width: 768px) {
+    #generateWithAiModal .ai-generator-container .left-column {
+        height: auto;
+        min-height: 650px;
+    }
+    
+    #generateWithAiModal .ai-generator-container .left-column .widget-box,
+    #generateWithAiModal .ai-generator-container .left-column .widget-body,
+    #generateWithAiModal .ai-generator-container .left-column .widget-main {
+        height: auto;
+        min-height: 650px;
+    }
+    
+    #generateWithAiModal .ai-generator-container .right-column {
+        height: auto;
+        min-height: 650px;
+    }
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 767px) {
+    #generateWithAiModal .modal-dialog {
+        margin: 10px !important;
+        max-width: calc(100vw - 20px) !important;
+    }
+    
+    #generateWithAiModal .ai-generator-container {
+        overflow: visible;
+    }
+    
+    #generateWithAiModal .ai-generator-container .row {
+        flex-direction: column;
+        overflow: visible;
+        height: auto;
+    }
+    
+    #generateWithAiModal .ai-generator-container .left-column {
+        width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+    }
+    
+    #generateWithAiModal .ai-generator-container .left-column .widget-box,
+    #generateWithAiModal .ai-generator-container .left-column .widget-body,
+    #generateWithAiModal .ai-generator-container .left-column .widget-main {
+        height: auto;
+        overflow: visible;
+    }
+    
+    #generateWithAiModal .ai-generator-container .right-column {
+        width: 100%;
+        height: 300px;
+        padding: 0;
+        min-height: 300px;
+    }
+    
+    #generateWithAiModal .ai-generator-container .right-column .widget-box,
+    #generateWithAiModal .ai-generator-container .right-column .widget-body,
+    #generateWithAiModal .ai-generator-container .right-column .widget-main {
+        height: 100%;
+    }
+    
+    #generateWithAiModal .ai-generator-container .generated-images-container {
+        height: 100%;
+    }
+    
+    #generateWithAiModal .ai-generator-container .generated-images-grid {
+        height: calc(100% - 60px);
+    }
+    
+    #generateWithAiModal .modal-body {
+        max-height: 70vh;
+        overflow-y: auto;
+        padding-bottom: 10px;
+    }
+    
+    #generateWithAiModal .modal-footer {
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+    }
+} 
