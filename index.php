@@ -270,6 +270,16 @@
 
             }
 
+            .btn.btn-blue {
+                    background-color: #4271f4;
+                    color: #fff;
+                }
+            .btn.btn-small {
+                font-size: 16px;
+                font-size: .8rem;
+                padding: 16px 32px;
+            }
+
         </style>
 
         <!-- Custom CSS -->
@@ -278,7 +288,7 @@
 
         <link rel="stylesheet" href="https://cdn-cms-s-8-4.f-static.net/versions/2/system_mini/css/minimize_all.css?v=y84124357" type="text/css" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="/versions/2/css/websiteCSS.css?w=10898050&orderScreen=&websiteID=10898050&onlyContent=&tranW=&v=css_y237_57976158" class="reloadable-css" type="text/css">
+        <link rel="stylesheet" href="versions/2/css/websiteCSS.css?w=10898050&orderScreen=&websiteID=10898050&onlyContent=&tranW=&v=css_y237_57976158" class="reloadable-css" type="text/css">
 
         <!-- Froala Editor CSS -->
 
@@ -449,6 +459,19 @@
                                         <span class="txt-container">Contact</span>
 
                                     </a>
+
+                                </li>
+                                <li>
+                                    |
+                                </li>
+                                <li>
+                                    
+                                    <li class="loginMenu"><a class="menuItem" href="login.php"><i class="fal fa-sign-in visible-xs-block"></i><span class="hidden-xs">Login</span></a></li>
+
+                                </li>
+                                <li>
+
+                                 <a class="btn btn-blue btn-small" href="register.php"><i class="fal fa-plus visible-xs-block"></i><span class="hidden-xs">START HERE</span></a>
 
                                 </li>
 
