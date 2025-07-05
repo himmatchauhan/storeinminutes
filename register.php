@@ -2,10 +2,7 @@
 require_once 'config.php';
 
 if (isset($_SESSION['email'])) {
-    echo "<h3>Welcome, {$_SESSION['name']}</h3>";
-    echo "<p>Email: {$_SESSION['email']}</p>";
-    echo "<img src='{$_SESSION['picture']}' width='100'><br><br>";
-    echo "<a href='logout.php'>Logout</a>";
+    header('Location: index.php');
     exit();
 }
 
@@ -16,6 +13,35 @@ $login_url = $client->createAuthUrl();
 
 <script>
     const googleLoginURL = <?= json_encode($login_url) ?>;
+
+
+    function saveStep1ToSessionAndLoginWithGoogle() {
+        console.log("CALL THE saveStep1ToSessionAndLoginWithGoogle");
+        const formData = {
+            businessType: document.querySelector('[name="businessType"]').value,
+            websiteName: document.querySelector('[name="websiteName"]').value,
+            websiteDescription: document.querySelector('[name="websiteDescription"]').value,
+            websiteType: document.querySelector('[name="websiteType"]').value
+
+        };
+
+        // Send to PHP via AJAX
+        fetch('save-step1-session.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.text())
+        .then(result => {
+            if (result === 'ok') {
+                // Redirect to Google login
+              //  window.location.href = "https://accounts.google.com/o/oauth2/auth?client_id=...&redirect_uri=https://yourdomain.com/callback.php&..."; 
+            } else {
+                alert('Failed to save session data');
+            }
+        });
+    }
+
 </script>
 
 <!DOCTYPE html>
@@ -177,7 +203,7 @@ background-color: #ccc !important;
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-	<META NAME="ROBOTS" CONTENT="NOINDEX">
+    <META NAME="ROBOTS" CONTENT="NOINDEX">
 
     <link rel="stylesheet" href="https://cdn-cms-s-8-4.f-static.net/manager/login/admin/assets/js/select2/select2.min.css?v=n84124382" crossorigin="anonymous">
 <style>
@@ -660,7 +686,7 @@ background-color: #ccc !important;
         }
         .side2 {
             width: 100%;
-			padding: 0;
+            padding: 0;
         }
         #site123Logo {
             display: none;
@@ -709,7 +735,7 @@ background-color: #ccc !important;
             <div class="login-container">
                                 <div class="position-relative">
                     <div id="wizard-box">
-                                                    <form method="post" action="/manager/login/sign_up.php" id="sign-up-form" target="_top">
+                                                    <form method="post" action="sign_up.php" id="sign-up-form" target="_top">
                                                     <div class="space-6"></div>
                             <div class="step1 wizardStepsBox" >
                                 <div class="mb-5 progressSteps" >
@@ -844,8 +870,7 @@ background-color: #ccc !important;
                                                                             <input type="hidden" id="category" name="category" value=""/>
                                                                             <input type="hidden" id="newThemeCategoryID" name="newThemeCategoryID" value=""/>
                                                                             <input type="hidden" id="l" name="l" value="en"/>
-                                                                            <input type="hidden" id="pageUniqueID" name="pageUniqueID" value="6863771724bfe"/>
-                                                                                                                                                                                                                                                <input type="hidden" id="themeID" name="themeID" value="11851">
+                                                                            <input type="hidden" id="pageUniqueID" name="pageUniqueID" value="6863771724bfe"/>                                                                                                                                                                                  <input type="hidden" id="themeID" name="themeID" value="11851">
                                                                                                                                                                                                                                         <input type="hidden" id="cardThemeID" name="cardThemeID" value="">
                                                                             <input type="hidden" id="s_kind" name="s_kind" value="1">
                                                                             <input type="hidden" id="fastBuilder" name="fastBuilder" value="1"/>
@@ -865,20 +890,20 @@ background-color: #ccc !important;
                                                                 <h4 class="card-clean-title text-center">Quick Sign-Up</h4>
                                                                 <div class="socialBox">
                                                                     <div class="text-center" style="display: flex;flex-direction: column;align-items: center;">
-                                                                        <a class="facebookLogin" id="facebookSignup">
+                                                                        <!-- <a class="facebookLogin" id="facebookSignup">
                                                                             <div class="socialLoginBun row">
                                                                                 <div class="left col-xs-2" style="width: 50px;">
                                                                                     <div class="text-center">
                                                                                         <i class="ace-icon fab fa-facebook-f"></i>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="right col-xs-10" style="    background-color: #fff; color: #4264b2;	border-left: 1px solid #4264b2;">
+                                                                                <div class="right col-xs-10" style="    background-color: #fff; color: #4264b2; border-left: 1px solid #4264b2;">
                                                                                     <div class="text-center">
                                                                                         Facebook
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </a>
+                                                                        </a> -->
                                                                         <a class="googleLogin" id="googleSignup">
                                                                             <div class="socialLoginBun row">
                                                                                 <div class="left col-xs-2" style="width: 50px;">
@@ -922,7 +947,7 @@ background-color: #ccc !important;
                                 </div>
                             </div>
                             <div class="space-6"></div>
-							<input type="hidden" name="isAIOnBoarding" value="1">
+                            <input type="hidden" name="isAIOnBoarding" value="1">
                             <input type="hidden" id="address" name="address" value="" maxlength="200">
                             <input type="hidden" id="phone" name="phone" value="">
                             <input type="hidden" id="websiteType" name="websiteType" value="">
@@ -1148,6 +1173,13 @@ $(window).on("load", function() {
 var slideSpeed = 500;
 var isRecaptchaResourcesLoaded = false;
 
+
+
+
+    
+
+
+
 function SetFastWizardButtons() {
     $('.moveToStep2').click(function( event, isSaveToHistory ) {
 
@@ -1225,9 +1257,9 @@ function SetFastWizardButtons() {
         } else {
             $('.step2 #'+websiteNameField+'').attr('placeholder',"e.g., Jeff's Coffee, Mary's Flower Shop");
         }
-		
-		// By default we want to save the step to browser history
-		if ( typeof isSaveToHistory === "undefined" ) isSaveToHistory = true;
+        
+        // By default we want to save the step to browser history
+        if ( typeof isSaveToHistory === "undefined" ) isSaveToHistory = true;
 
         //Set the theme the user choose
         //$('#themeID').val($(this).data('default-theme'));
@@ -1283,81 +1315,81 @@ function initializeGoogleRecaptcha() {
 
 //you don't need this, just used for changing background
 jQuery(function($) {
-	/**
-	 * When there is info filled by the user in the fields we want to show him
-	 * alert when he is pressing on examples button so he won't change his info
-	 * by mistake
-	 */
-	$('#businessType, #websiteName, #websiteDescription').on('change input', function() {
-		// hide both buttons
-		$('#setExample').hide();
-		$('#setExampleWithConfirmation').hide();
-		// user filled info - show button with confirmation
-		if ( $('#businessType').val() != '' || $('#websiteName').val() != '' || $('#websiteDescription').val() != '' ) {
-			$('#setExampleWithConfirmation').show();
-		// fields are empty - show the button to apply examples
-		} else {
-			$('#setExample').show();
-		}
-	});
+    /**
+     * When there is info filled by the user in the fields we want to show him
+     * alert when he is pressing on examples button so he won't change his info
+     * by mistake
+     */
+    $('#businessType, #websiteName, #websiteDescription').on('change input', function() {
+        // hide both buttons
+        $('#setExample').hide();
+        $('#setExampleWithConfirmation').hide();
+        // user filled info - show button with confirmation
+        if ( $('#businessType').val() != '' || $('#websiteName').val() != '' || $('#websiteDescription').val() != '' ) {
+            $('#setExampleWithConfirmation').show();
+        // fields are empty - show the button to apply examples
+        } else {
+            $('#setExample').show();
+        }
+    });
 
-	/**
-	 * Bootstrap Confirmation Plugin Initial
-	 * Documentation: https://ethaizone.github.io/Bootstrap-Confirmation/
-	 */
-	$('#setExampleWithConfirmation').confirmation({
-		placement: function() {
-			// mobile - open from top
-			if ( jQuery.browser.mobile ) return 'top';
-			// desktop - open from the right if RTL otherwise from the left
-			return "right";
-		},		title: '<div>Confirming this will overwrite your current website details. Are you sure you want to continue?</div>',
-		btnOkLabel: '<i class="icon-ok-sign icon-white"></i> '+"Yes",
-		btnCancelLabel: '<i class="icon-remove-sign"></i> '+"No",
-		popout: true,
-		singleton: true,
-		container: 'body',
-		btnOkClass: 'btn-danger btn-sm spacing-confirmation-btn',
-		btnCancelClass: 'btn-default btn-sm spacing-confirmation-btn',
-		onConfirm: function() { return true; }
-	});
-	/**
-	 * Bug Fix - The buttons of the confirmation has href="#" and when
-	 * user clicks on it it triggeres the history engine because it's adding
-	 * hastag to the url so we manually handle it
-	 */
-	$('#setExampleWithConfirmation').on('shown.bs.confirmation', function() {
-		$('.popover.confirmation a').on('click', function( event ) {
-			event.preventDefault();
-		});
-	})
-	// show backdrop
-	.on('show.bs.confirmation', function() {
-		$('<div class="confirmation-backdrop" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 100; background-color: #000; opacity: 0.4;"></div>').appendTo('body');
-	})
-	// remove backdrop
-	.on('hide.bs.confirmation', function() {
-		$('.confirmation-backdrop').remove();
-	});
+    /**
+     * Bootstrap Confirmation Plugin Initial
+     * Documentation: https://ethaizone.github.io/Bootstrap-Confirmation/
+     */
+    $('#setExampleWithConfirmation').confirmation({
+        placement: function() {
+            // mobile - open from top
+            if ( jQuery.browser.mobile ) return 'top';
+            // desktop - open from the right if RTL otherwise from the left
+            return "right";
+        },      title: '<div>Confirming this will overwrite your current website details. Are you sure you want to continue?</div>',
+        btnOkLabel: '<i class="icon-ok-sign icon-white"></i> '+"Yes",
+        btnCancelLabel: '<i class="icon-remove-sign"></i> '+"No",
+        popout: true,
+        singleton: true,
+        container: 'body',
+        btnOkClass: 'btn-danger btn-sm spacing-confirmation-btn',
+        btnCancelClass: 'btn-default btn-sm spacing-confirmation-btn',
+        onConfirm: function() { return true; }
+    });
+    /**
+     * Bug Fix - The buttons of the confirmation has href="#" and when
+     * user clicks on it it triggeres the history engine because it's adding
+     * hastag to the url so we manually handle it
+     */
+    $('#setExampleWithConfirmation').on('shown.bs.confirmation', function() {
+        $('.popover.confirmation a').on('click', function( event ) {
+            event.preventDefault();
+        });
+    })
+    // show backdrop
+    .on('show.bs.confirmation', function() {
+        $('<div class="confirmation-backdrop" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 100; background-color: #000; opacity: 0.4;"></div>').appendTo('body');
+    })
+    // remove backdrop
+    .on('hide.bs.confirmation', function() {
+        $('.confirmation-backdrop').remove();
+    });
 
     // Randomize buisness description
     $('#setExample, #setExampleWithConfirmation').on('click', function( event ) {
         // prevent default link event
         event.preventDefault();
         event.stopPropagation();
-		// apply the examples
-		applyExample();
+        // apply the examples
+        applyExample();
     });
 
-	/**
-	 * The function is applying the example to the form
-	 */
-	function applyExample() {
-		let randomExample = printRandomBusinessDescription();
-		$('#businessType').val(randomExample[0]).trigger('change');
-		$('#websiteName').val(randomExample[1]).trigger('change');
-		$('#websiteDescription').val(randomExample[2]).trigger('change');
-	}
+    /**
+     * The function is applying the example to the form
+     */
+    function applyExample() {
+        let randomExample = printRandomBusinessDescription();
+        $('#businessType').val(randomExample[0]).trigger('change');
+        $('#websiteName').val(randomExample[1]).trigger('change');
+        $('#websiteDescription').val(randomExample[2]).trigger('change');
+    }
 
     // Check if we need to set the height of the parent that call this page
     SetIframeHeight();
@@ -1436,6 +1468,7 @@ jQuery(function($) {
            
         });
 
+
         // Google signup click handler
         $('#googleSignup').click(function(e) {
             e.preventDefault(); // Prevent default anchor behavior
@@ -1447,11 +1480,13 @@ jQuery(function($) {
                 $('#' + websiteNameField).val('Website Name');
             }
 
+            saveStep1ToSessionAndLoginWithGoogle();
+
             // Manually trigger validation
-            if ($("#sign-up-form").valid()) {
+            //if ($("#sign-up-form").valid()) {
                 // Redirect to Google login
                 window.location.href = googleLoginURL;
-            }
+            //}
         });
     
 
@@ -1469,17 +1504,17 @@ jQuery(function($) {
         modal.find('.modal-body').html('<iframe id="termsWinIframe" name="termsWinIframe" src="/manager/login/sign_up_terms.php" style="width:100%;height:500px;margin:0;padding:0;border:none;"></iframe>');
     });
 
-	/**
-	 * Validator Errors Remove - When user types something in the inputs drop
-	 * the error messages because it's not empty now
-	 */
-	$('#'+websiteNameField+', #businessType').on('input change', function(event) {
-		if ( $(this).get(0).id == websiteNameField ) {
-			$('#websiteNameAlert').remove();
-		} else if ( $(this).get(0).id == 'businessType' ) {
-			$('#businessTypeAlert').remove();
-		}
-	});
+    /**
+     * Validator Errors Remove - When user types something in the inputs drop
+     * the error messages because it's not empty now
+     */
+    $('#'+websiteNameField+', #businessType').on('input change', function(event) {
+        if ( $(this).get(0).id == websiteNameField ) {
+            $('#websiteNameAlert').remove();
+        } else if ( $(this).get(0).id == 'businessType' ) {
+            $('#businessTypeAlert').remove();
+        }
+    });
 
     // Form submit
     $('#sign-up-form').submit(function(e, isSaveToHistory) {
@@ -1598,7 +1633,7 @@ jQuery(function($) {
 function IsUsernameExist() {
     $.ajax({
         type: 'POST',
-        url: '/manager/login/checkUser.php',
+        url: 'checkUser.php',
         data: {
             email: $('#email').val()
         },
@@ -1815,21 +1850,21 @@ function SaveStepToHistory(step) {
  * The function is showing the form step according to the sent step number
  */
 function showStep( stepNum, isSaveToHistory ) {
-	/**
-	 * Security - if the user tries to navigate back and his browser hsitory don't have step id
-	 * we always showed the step 1 but when opening with AI + from templates
-	 * the user don't need to see step 1 anymore so we always will show
-	 * step 2 instead
-	 */
-	if ( !stepNum && $.isNumeric(themeID) ) {
-		stepNum = 'step2';
-	}
+    /**
+     * Security - if the user tries to navigate back and his browser hsitory don't have step id
+     * we always showed the step 1 but when opening with AI + from templates
+     * the user don't need to see step 1 anymore so we always will show
+     * step 2 instead
+     */
+    if ( !stepNum && $.isNumeric(themeID) ) {
+        stepNum = 'step2';
+    }
     // check what step we need to show
     switch ( stepNum ) {
         // step 2
         case 'step2':
-			// change back the type password to the type text so the browser will not open password suggestion on other inputs
-			$('.password-container [name="password"]').attr('type','text');
+            // change back the type password to the type text so the browser will not open password suggestion on other inputs
+            $('.password-container [name="password"]').attr('type','text');
             // show step 2
             $('.step2').slideDown(slideSpeed, function() {
                 // scroll to top
@@ -1846,11 +1881,11 @@ function showStep( stepNum, isSaveToHistory ) {
             break;
         // step 3
         case 'step3':
-			/**
-			 * Bug Fix - If the field is loaded with type
-			 * password the chrome browser was showing the password suggestions on websiteName so we fixed it by changing the type text to type password when opening step 3 only
-			 */
-			$('.password-container [name="password"]').attr('type','password');
+            /**
+             * Bug Fix - If the field is loaded with type
+             * password the chrome browser was showing the password suggestions on websiteName so we fixed it by changing the type text to type password when opening step 3 only
+             */
+            $('.password-container [name="password"]').attr('type','password');
             // show step 3
             $('.step3').slideDown(slideSpeed, function() {
                 // focus on the name field
@@ -1865,8 +1900,8 @@ function showStep( stepNum, isSaveToHistory ) {
             break;
         // step 1
         default:
-			// change back the type password to the type text so the browser will not open password suggestion on other inputs
-			$('.password-container [name="password"]').attr('type','text');
+            // change back the type password to the type text so the browser will not open password suggestion on other inputs
+            $('.password-container [name="password"]').attr('type','text');
             // show step 1
             $('.step1').slideDown(slideSpeed, function() {
                 // save to history if needed

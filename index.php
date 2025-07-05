@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 
 <html dir="ltr" lang="en" class=" home_page home_page_design s_layout1 isFreePackage in-management">
@@ -464,6 +466,18 @@
                                 <li>
                                     |
                                 </li>
+
+                                <?php if (isset($_SESSION['email'])): ?>
+
+                                 <!-- If user is logged in -->
+                                    <li class="user-email">
+                                        <a href="#"><?php echo htmlspecialchars($_SESSION['name']); ?></a>
+                                    </li>
+                                    <li>
+                                        <a class="btn btn-red btn-small" href="logout.php"> <span class="hidden-xs">Logout</span></a>
+                                    </li>
+                                <?php else: ?>
+
                                 <li>
                                     
                                     <li class="loginMenu"><a class="menuItem" href="login.php"><i class="fal fa-sign-in visible-xs-block"></i><span class="hidden-xs">Login</span></a></li>
@@ -474,6 +488,8 @@
                                  <a class="btn btn-blue btn-small" href="register.php"><i class="fal fa-plus visible-xs-block"></i><span class="hidden-xs">START HERE</span></a>
 
                                 </li>
+                                <?php endif; ?>
+
 
                             </ul>
 

@@ -1,18 +1,61 @@
 <?php 
 require_once 'config.php';
+require_once 'db.php';
 
 $login_url = $client->createAuthUrl();
 //echo $login_url; exit; 
 
 if (isset($_SESSION['email'])) {
-    echo "<h3>Welcome, {$_SESSION['name']}</h3>";
+
+    header("Location: index.php");  exit();
+  /*  echo "<h3>Welcome, {$_SESSION['name']}</h3>";
     echo "<p>Email: {$_SESSION['email']}</p>";
     echo "<img src='{$_SESSION['picture']}' width='100'><br><br>";
     echo "<a href='logout.php'>Logout</a>";
-    exit();
+    exit();*/
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get email and password from form
+    $email = isset($_POST['username']) ? trim($_POST['username']) : '';
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
+
+    
+    // Prepare statement to fetch user by email
+    $stmt = $conn->prepare("SELECT id, name, password FROM user WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    // Check if user exists
+    if ($stmt->num_rows === 1) {
+        $stmt->bind_result($id, $name, $hashedPassword);
+        $stmt->fetch();
+
+        // Verify entered password with hashed password from DB
+        if (password_verify($password, $hashedPassword)) {
+            // Set session variables
+            $_SESSION['id']    = $id;
+            $_SESSION['name']  = $name;
+            $_SESSION['email'] = $email;
+
+            // Redirect to dashboard or homepage
+            header("Location: index.php");
+            exit();
+        } else {
+            // Incorrect password
+            echo " Incorrect credentials.";
+        }
+    } else {
+        // Email not found
+        echo " Incorrect credentials.";
+    }
+
+    $stmt->close();
+    $conn->close();
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en" >
@@ -256,7 +299,7 @@ background-color: #ccc !important;
                                 <div class="widget-main">
 
                                     
-                                    <form method="post" class="form normal-label" action="login.php?l=en" id="login-form">
+                                    <form method="post" class="form normal-label" action="login.php" id="login-form">
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <fieldset>
@@ -276,13 +319,13 @@ background-color: #ccc !important;
                                                     </div>
                                                 </div>
 
-                                                <div class="toolbar clearfix" style="padding: 0;background: transparent;border: 0;">
+                                              <!--   <div class="toolbar clearfix" style="padding: 0;background: transparent;border: 0;">
                                                     <div>
                                                         <a href="#" style="font-size:12px;text-shadow: none;">
                                                             <i class="ace-icon fa fa-unlock-alt"></i>
                                                             I forgot my password                                                        </a>
                                                     </div>
-                                                </div>
+                                                </div> -->
 
                                             </fieldset>
                                         </div>
@@ -308,7 +351,7 @@ background-color: #ccc !important;
                                                 Or Log in Using                                            </div>
 
                                             <div class="text-center" style="display: flex;flex-direction: column;align-items: center;">
-                                                <a id="facebookLogin" href="#" class="btn btn-lighter btn-block btn-lg facebookLogin mb-3 flex-div-center"><img src="https://static.s123-cdn-network-a.com/admin/InterfaceStatisFiles/allOther/all/facebook.svg" style="height: 20px;width:auto;">&nbsp;&nbsp;Login with Facebook</a>
+                                               <!--  <a id="facebookLogin" href="#" class="btn btn-lighter btn-block btn-lg facebookLogin mb-3 flex-div-center"><img src="https://static.s123-cdn-network-a.com/admin/InterfaceStatisFiles/allOther/all/facebook.svg" style="height: 20px;width:auto;">&nbsp;&nbsp;Login with Facebook</a> -->
                                                 <a id="googleLogin" href="<?= htmlspecialchars($login_url) ?>" class="btn btn-lighter btn-block btn-lg googleLogin mb-3 flex-div-center"><img src="https://static.s123-cdn-network-a.com/admin/InterfaceStatisFiles/allOther/all/google.svg" style="height: 20px;width:auto;">&nbsp;&nbsp;Login with Google</a>
                                             </div>
                                         </div>
@@ -364,11 +407,11 @@ background-color: #ccc !important;
                             </div>
                         </div>
 
-                        <div class="toolbar center " style="background-color: transparent;padding:20px;">
+                       <!--  <div class="toolbar center " style="background-color: transparent;padding:20px;">
                             <a href="#" class="btn btn-link back-to-login-link" style="color:white;">
                                 <i class="fa fa-sign-in"></i>
                                 New user? Sign up here.                            </a>
-                        </div>
+                        </div> -->
                     </div>
                     
                 </div>
